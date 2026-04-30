@@ -52,6 +52,7 @@ ${UBOOT_SRC}/u-boot.bin: FORCE
 clean:
 	-$(MAKE) -C ${UBOOT_SRC} clean
 	-$(MAKE) -C ${MBB_SRC} clean
+	-$(MAKE) -C ${WTP_SRC} clean
 	-$(MAKE) -C ${TFA_SRC} distclean
 
 gitclean:
