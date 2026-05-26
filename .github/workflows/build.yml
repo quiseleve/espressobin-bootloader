@@ -13,14 +13,14 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-slim
 
     steps:
     - name: Install build dependencies
       run: |
-        sudo apt-mark hold firefox
+        sudo apt-mark hold azure-cli docker-buildx-plugin docker-ce-cli docker-compose-plugin powershell
         sudo apt-get update && sudo apt-get upgrade
-        sudo apt-get install --assume-yes gcc-aarch64-linux-gnu gcc-arm-linux-gnueabi libcrypto++-dev libgnutls28-dev uuid-dev
+        sudo apt-get install --assume-yes bison gcc-aarch64-linux-gnu gcc-arm-linux-gnueabi libcrypto++-dev libgnutls28-dev libtinfo-dev uuid-dev
 
     - name: Download source code
       run: |
