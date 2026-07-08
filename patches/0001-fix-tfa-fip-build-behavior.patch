@@ -1,0 +1,36 @@
+diff --git a/Makefile b/Makefile
+index 39960b4..dc88f32 100644
+--- a/Makefile
++++ b/Makefile
+@@ -1021,9 +1021,11 @@ fiptool: ${FIPTOOL}
+ fwu_fiptool: ${FWU_FIPTOOL}
+ 
+ fip: bl2_fip
+-bl2_fip: ${BUILD_PLAT}/${BL2_FIP_NAME}
+ fip: ${BUILD_PLAT}/${FIP_NAME}
++
++bl2_fip: ${BUILD_PLAT}/${BL2_FIP_NAME}
+ fwu_fip: ${BUILD_PLAT}/${FWU_FIP_NAME}
++fip bl2_fip fwu_fip: | ${BUILD_PLAT}
+ 
+ ifeq (${NEED_FIP},y)
+ ${BUILD_PLAT}/${FIP_NAME}: ${FIP_DEPS} ${FIPTOOL}
+diff --git a/tools/fiptool/Makefile b/tools/fiptool/Makefile
+index f8dd31a..a3c89b2 100644
+--- a/tools/fiptool/Makefile
++++ b/tools/fiptool/Makefile
+@@ -38,11 +38,13 @@ endif
+ 
+ all: ${PROJECT}
+ 
+-${PROJECT}: ${OBJECTS} Makefile
++${PROJECT}: ${OBJECTS}
+ @echo "  HOSTLD  $$@"
+ $${Q}$${HOSTCC} $${OBJECTS} $${LDLIBS} -o $$@
+ @echo
+ @echo "Built $$@ successfully"
+ @echo
+ 
++${OBJECTS}: Makefile
++
+ %.o: %.c %.h Makefile

@@ -25,6 +25,8 @@ wtmi_app: ${MBB_SRC}/wtmi_app.bin
 bubt_image: ${TFA_SRC}/build/a3700/release/flash-image.bin
 
 ${TFA_SRC}/build/a3700/release/flash-image.bin: u-boot wtmi_app FORCE
+	git -C ${TFA_SRC} restore .
+	git -C ${TFA_SRC} apply $(CURDIR)/patches/0001-fix-tfa-fip-build-behavior.patch
 	$(MAKE) -C ${TFA_SRC} \
 		CROSS_COMPILE=${CROSS_COMPILE} \
 		PLAT=a3700 \
