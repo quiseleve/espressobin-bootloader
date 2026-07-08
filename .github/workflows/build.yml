@@ -11,8 +11,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        target: [v7_1GB]
+        target: [v5_2GB, v7_1GB]
         include:
+          - target: v5_2GB
+            clock: CPU_1200_DDR_750
+            topology: 7
           - target: v7_1GB
             clock: CPU_1200_DDR_750
             topology: 5
@@ -27,7 +30,10 @@ jobs:
           sudo apt-get install -y crossbuild-essential-arm64 gcc-arm-linux-gnueabi device-tree-compiler bison flex libssl-dev bc make git python3 python3-setuptools python-is-python3 libgnutls28-dev uuid-dev libcrypto++-dev
           
       - name: Clone bschnei ebu-bootloader fork
-        run: git clone --recursive https://github.com/bschnei/ebu-bootloader.git workspace
+        run: |
+          # Bypass gitlab.nic.cz 403 blocks in GitHub Actions by forcing the public GitHub mirror
+          git config --global url."https://github.com/turris-cz/".insteadOf "https://gitlab.nic.cz/turris/"
+          git clone --recursive https://github.com/bschnei/ebu-bootloader.git workspace
 
       - name: Configure and Build Bootloader
         working-directory: ./workspace
