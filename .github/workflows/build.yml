@@ -14,7 +14,7 @@ jobs:
         target: [v5_2GB, v7_1GB]
         include:
           - target: v5_2GB
-            clock: CPU_1200_DDR_750
+            clock: CPU_1000_DDR_800
             topology: 7
           - target: v7_1GB
             clock: CPU_1200_DDR_750
